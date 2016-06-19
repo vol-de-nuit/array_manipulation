@@ -1,0 +1,53 @@
+<?php
+//this original author of this function is Jon
+//it was originally written in response to answer asked on stackoverflow http://stackoverflow.com/questions/96759
+//Basic feature sort by column usort($data, make_comparer('name of column'));
+//Features usort($data, make_comparer('name of column', 'feature no'));
+// usort($data, make_comparer('id')); is the same as usort($data, make_comparer('name of column', 0));
+//0 => the column name to sort on (mandatory)
+//1 => either SORT_ASC or SORT_DESC (optional)
+//2 => a projection function (optional)
+//sort multi-columns
+//To sort by number descending and then by name descending:
+//usort($data, make_comparer(['number', SORT_DESC], ['name', SORT_DESC]));
+//To sort in case-insensitive fashion
+//usort($data, make_comparer(['name', SORT_ASC, str_to_lower]);
+
+function make_comparer() {
+    // Normalize criteria up front so that the comparer finds everything tidy
+    $criteria = func_get_args();
+    foreach ($criteria as $index => $criterion) {
+        $criteria[$index] = is_array($criterion)
+            ? array_pad($criterion, 3, null)
+            : array($criterion, SORT_ASC, null);
+    }
+
+    return function($first, $second) use (&$criteria) {
+        foreach ($criteria as $criterion) {
+            // How will we compare this round?
+            list($column, $sortOrder, $projection) = $criterion;
+            $sortOrder = $sortOrder === SORT_DESC ? -1 : 1;
+
+            // If a projection was defined project the values now
+            if ($projection) {
+                $lhs = call_user_func($projection, $first[$column]);
+                $rhs = call_user_func($projection, $second[$column]);
+            }
+            else {
+                $lhs = $first[$column];
+                $rhs = $second[$column];
+            }
+
+            // Do the actual comparison; do not return if equal
+            if ($lhs < $rhs) {
+                return -1 * $sortOrder;
+            }
+            else if ($lhs > $rhs) {
+                return 1 * $sortOrder;
+            }
+        }
+
+        return 0; // tiebreakers exhausted, so $first == $second
+    };
+}
+?>
