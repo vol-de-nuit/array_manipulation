@@ -1,2 +1,2 @@
 # array_manipulation
-collection of array manipulation related functions
+Collection of array manipulation functions
