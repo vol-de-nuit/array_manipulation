@@ -1,0 +1,13 @@
+<?php
+//sort by value function for multi-dimensional value
+//for PHP 5.2 or earlier
+function sortByOrder($a, $b) {
+    return $a['order'] - $b['order'];
+}
+
+//Starting in PHP 5.3, you can use an anonymous function:
+
+usort($myArray, function($a, $b) {
+    return $a['order'] - $b['order'];
+});
+?>
