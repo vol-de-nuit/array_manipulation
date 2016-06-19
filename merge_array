@@ -1,0 +1,10 @@
+<?php
+//merging two arrays with different keys then output as two arrays each containing all the keys in both arrays
+$new = array_merge($arrayOne,$arrayTwo);
+$new = array_keys($new);
+$newarray = array();        
+foreach($new as $value){            
+$newarray[0][$value] = isset($arrayOne[$value]) ? $arrayOne[$value] :  '' ;
+$newarray[1][$value] = isset($arrayTwo[$value]) ? $arrayTwo[$value] :  '' ;         
+        }
+print_r($newarray);
