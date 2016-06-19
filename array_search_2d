@@ -1,0 +1,15 @@
+<?php
+//Author: Silvena Lam
+//Search if keyword exists in subarray
+//this function intends to work with 2-level array only
+//add extra foreach loop to adapt it for use with array with more than 2 level
+function searchSubarray($arr, $keyword){
+    foreach($arr as $key=>$value)
+    {
+        if (in_array($keyword, $value, true)!=false){
+        return $key;
+        }
+    }
+    return false;
+}
+?>
