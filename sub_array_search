@@ -1,0 +1,11 @@
+<?php
+function searchSub($arr, $keyword){
+    foreach($arr as $key=>$value)
+    {
+        if (in_array($keyword, $value, true)!=false){
+        return $key;
+        }
+    }
+    return false;
+}
+?>
