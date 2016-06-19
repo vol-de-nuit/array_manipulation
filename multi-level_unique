@@ -1,0 +1,17 @@
+<?php 
+//Author: Silvena Lam
+//function to remove duplicate elements from the sub-array of the deepest end of each key path
+function multi_unique($array){
+        $temp = array_intersect_key($array, array_map("serialize", $array));
+        foreach ($temp as $key => $value){
+            if (is_array($value)){
+               $temp[$key] = multi_unique($value);
+            }
+//the else if statement is to counter the problem where the deepest level of each path is different
+            else if (count($temp) == count($temp, COUNT_RECURSIVE)){
+                $temp=array_unique($temp);
+            }
+        }
+        return $temp;
+    }
+?>
