@@ -1,0 +1,23 @@
+<?php
+//Author: Silvena Lam
+//sample array
+   /* $arr = array( 
+        array("company"=>"A", "revenue_range"=>"100 - 250M"), 
+        array("company"=>"B", "revenue_range"=>"10 - 50M"), 
+        array("company"=>"C", "revenue_range"=>"500M - 1B"), 
+        array("company"=>"D", "revenue_range"=>"50 - 100M"), 
+        array("company"=>"E", "revenue_range"=>">1B"), 
+        array("company"=>"F", "revenue_range"=>"1 - 10M"), 
+        array("company"=>"G", "revenue_range"=>"0 - 1M") 
+        ); 
+  //array containing custom order for which the sort function should be based on
+  /*
+    $order= array("0 - 1M", "1 - 10M", "10 - 50M", "50 - 100M", "100 - 250M", "250 - 500M", "500M - 1B", ">1B");*/
+    
+    $arr="";
+    $order="";
+    $order_by=array_flip($order);
+    usort($arr, function($a, $b) use($order_by) {
+        return $order_by[$a["revenue_range"]] - $order_by[$b["revenue_range"]];
+    });
+    print_r($arr);
