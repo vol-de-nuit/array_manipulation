@@ -1,0 +1,12 @@
+<?php
+$result = [];
+
+foreach ($arr as $pair) {
+//amend this line to create a if statement for the condition that exempts from the merge
+    if (empty($result) || $pair['s'] - end($result)['e'] > 1) {
+        $result[] = $pair;
+    } else {
+        $result[key($result)]['e'] = $pair['e'];
+    }
+}
+?>
